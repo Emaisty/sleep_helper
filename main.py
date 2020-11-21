@@ -19,26 +19,24 @@ def act(url):
     time.sleep(2)
 
 
+def check(str):
+    i = str.find("https")
+    url = ""
+    while i != len(str) and str != ' ':
+        url += str
+        i += 1
+    act(url)
+
+
 while True:
     messages = check_message()
     print(messages['items'][0]['text'])
     if messages['items'][0]['text'].find("events.webinar.ru") + 1:
-        i = messages['items'][0]['text'].find("https")
-        url = ""
-        while i != len(messages['items'][0]['text']) and messages['items'][0]['text'][i] != ' ':
-            url += messages['items'][0]['text'][i]
-            i += 1
-        act(url)
+        check(messages['items'][0]['text'])
         break
 
     if messages['items'][0]['fwd_messages'] != []:
         if messages['items'][0]['fwd_messages'][0]['text'].find("events.webinar.ru") + 1:
-            i = messages['items'][0]['fwd_messages'][0]['text'].find("https")
-            url = ""
-            while i != len(messages['items'][0]['fwd_messages'][0]['text']) and messages['items'][0]['fwd_messages'][0][
-                'text'] != ' ':
-                url += messages['items'][0]['fwd_messages'][0]['text'][i]
-                i += 1
-            act(url)
+            check(messages['items'][0]['fwd_messages'][0]['text'])
             break
     time.sleep(2)
