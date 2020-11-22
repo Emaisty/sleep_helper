@@ -6,7 +6,7 @@ token = ""  # токен вк
 session = vk.Session(access_token=token)
 vk_api = vk.API(session)
 
-sid = 2000000000 + vk_api.messages.searchConversations(q='ВАЖ', count=1, v=5.126)['items'][0]['peer'][
+sid = 2000000000 + vk_api.messages.searchConversations(q='ВАЖНОЕ! РГБО - 01- 20', count=1, v=5.126)['items'][0]['peer'][
     'local_id']  # номер беседы
 
 x_pos_text = 650  # куда сместить курсор чтобы вставить имя
