@@ -19,24 +19,31 @@ def act(url):
     time.sleep(2)
 
 
-def check(str):
+def check(str="nope"):
     i = str.find("https")
     url = ""
     while i != len(str) and str != ' ':
-        url += str
+        url += str[i]
         i += 1
-    act(url)
+    return url
 
 
-while True:
-    messages = check_message()
-    print(messages['items'][0]['text'])
-    if messages['items'][0]['text'].find("events.webinar.ru") + 1:
-        check(messages['items'][0]['text'])
-        break
+def find_url(mess):
+    print(1)
+    if mess['text'].find("events.webinar.ru") + 1:
+        print(mess['text'])
+        act(check(mess['text']))
+    if mess['attachments']:
+        if mess['attachments'][0]['link']['url'].find("events.webinar.ru") + 1:
+            act(check(mess['attachments'][0]['link']['url']))
+    if 'fwd_messages' in mess:
+        if mess['fwd_messages']:
+            m = mess['fwd_messages'][0]
+            find_url(m)
 
-    if messages['items'][0]['fwd_messages'] != []:
-        if messages['items'][0]['fwd_messages'][0]['text'].find("events.webinar.ru") + 1:
-            check(messages['items'][0]['fwd_messages'][0]['text'])
-            break
-    time.sleep(2)
+
+if __name__ == "__main__":
+    while True:
+        messages = check_message()['items'][0]
+        find_url(messages)
+        time.sleep(2)
