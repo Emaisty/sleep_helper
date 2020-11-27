@@ -2,25 +2,23 @@ import webbrowser
 from get_massage import check_message
 import time
 import pyautogui
-from global_var import x_pos_text, y_pos_text, x_pos_button, y_pos_button, name
+from global_var import x_pos_reg, y_pos_reg, x_pos_submit, y_pos_submit, x_pos_button, y_pos_button
 
 stop_list = []
 
 
 def act(url):
     if url in stop_list:
-        print('It\'s already had been')
+        print('Url has already been used')  # не бульте плиз
     else:
         stop_list.append(url)
         print(url)
         webbrowser.open(url)
         time.sleep(5)
-        pyautogui.click(x_pos_text, y_pos_text)
-        pyautogui.click(x_pos_text, y_pos_text)
-        pyautogui.click(x_pos_text, y_pos_text)
-        time.sleep(2)
-        pyautogui.typewrite(name)
-        time.sleep(2)
+        pyautogui.click(x_pos_reg, y_pos_reg)
+        time.sleep(3)
+        pyautogui.click(x_pos_submit, y_pos_submit)
+        time.sleep(3)
         pyautogui.click(x_pos_button, y_pos_button)
         time.sleep(2)
 
